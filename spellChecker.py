@@ -4,21 +4,20 @@ spell = SpellChecker()
 
 def main():
     print("Spell Checker!")
+    print("What file would you like to spell check!")
+    filename = input()
+    listOfWords = openFile(filename)
+
+    possibleMispelled = spell.unknown(listOfWords)
+    print("Here are the possible mispelled words")
+    print()
+    for word in possibleMispelled:
+        print(word, " and you might have meant ", spell.correction(word))
 
 def openFile(filename):
     with open(filename) as contentFile:
         fileList = contentFile.read().strip().split()
         return fileList
 
-
-fileList = openFile("test.txt")
-print(fileList)
-# find those words that may be misspelled
-misspelled = spell.unknown(fileList)
-
-for word in misspelled:
-    # Get the one `most likely` answer
-    print(spell.correction(word))
-
-    # # Get a list of `likely` options
-    # print(spell.candidates(word))
+if __name__ == "__main__":
+    main()
